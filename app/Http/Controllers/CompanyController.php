@@ -3,62 +3,80 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Company[]|Collection
      */
     public function index()
     {
-        //
+        return Company::orderByDesc('created_at')->get();
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Company
      */
-    public function store(Request $request)
+    public function store(Request $request): Company
     {
-        //
-    }
+//        dd($request);
+        $request->validate([
+            'name' => ['required'],
+            'email' => ['required'],
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Company $company)
-    {
-        //
+        $company = Company::create([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        return $company;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Company $company
+     * @return string
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, $company)
     {
-        //
+
+        $company = Company::findOrFail($company);
+
+        $request->validate([
+            'name' => ['required'],
+            'email' => ['required'],
+        ]);
+
+        $company->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        return $company;
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
+     * @param Company $company
+     * @return Response
      */
-    public function destroy(Company $company)
+    public function destroy($company)
     {
-        //
+        $company = Company::findOrFail($company);
+
+        $company->delete();
     }
 }
