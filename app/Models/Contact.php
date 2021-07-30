@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Company extends Model
+class Contact extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,8 @@ class Company extends Model
         'email',
     ];
 
-    public function contacts(){
-        return $this->belongsToMany(Contact::class);
+
+    public function companies(){
+        return $this->belongsToMany(Company::class);
     }
 }
