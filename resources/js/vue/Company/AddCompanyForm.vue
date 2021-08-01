@@ -1,7 +1,7 @@
 <template>
 
 
-    <Button class="new-button" label="New" icon="pi pi-plus" @click="openModal" />
+    <Button class="new-button p-button-success" label="New" icon="pi pi-plus" @click="openModal" />
     <Dialog header="Header" v-model:visible="displayAddModal" :style="{width: '30rem'}" :modal="true">
         <template #header>
             <h2>Add Company</h2>
@@ -27,6 +27,7 @@
 
 <script>
     export default {
+        emits: ['add-company'],
         data(){
             return {
                 enteredName: '',
@@ -49,10 +50,12 @@
                 .then( response => {
                     this.invalidInput = false;
                     if(response.status == 201) {
+                        this.$emit('add-company');
                         this.enteredName = '';
                         this.enteredEmail = '';
                     }
                     this.closeModal();
+
                 })
                 .catch( error => {
                     console.log(error);

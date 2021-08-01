@@ -1,32 +1,61 @@
 <template>
-<div class="card">
-    <div class="container">
-        <h2 class="title">Company Management</h2>
-        <div class="heading">
-            <AddCompanyForm></AddCompanyForm>
+    <div class="card">
+        <div class="container">
+            <h2 class="title">Company Management</h2>
+            <div class="heading">
+                <AddCompanyForm @add-company="getCompanies"></AddCompanyForm>
+            </div>
+            <CompanyDatatable :companies="companies" @company-update="getCompanies" ></CompanyDatatable>
         </div>
-        <CompanyDatatable ></CompanyDatatable>
     </div>
-</div>
 </template>
 
 <script>
-import AddCompanyForm from './Company/AddCompanyForm.vue'
-import CompanyDatatable from './Company/CompanyDatatable.vue'
+import AddCompanyForm from "./Company/AddCompanyForm.vue";
+import CompanyDatatable from "./Company/CompanyDatatable.vue";
 
-    export default {
-        components: {
-            AddCompanyForm,
-            CompanyDatatable
+export default {
+    components: {
+        AddCompanyForm,
+        CompanyDatatable,
+    },
+    data() {
+        return {
+            companies: [],
+        };
+    },
+    methods: {
+        addCompany(name, email) {
+            const newCompany = {
+                id: new Date().toISOString(),
+                name: name,
+                email: email,
+                contactCount: 0,
+            };
+            this.companies.unshift(newCompany);
         },
-        data() {
-            return {
-                companies: []
-            }
+        getCompanies() {
+            axios
+                .get("api/companies")
+                .then((response) => {
+                    this.companies = response.data.data;
+                    this.loading = false;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
-        methods: {
+        deleteCompany(companyId) {
+            console.log(companyId);
+            const compIndex = this.companies.findIndex(comp => comp.id === companyId);
+            this.companies.splice(compIndex, 1);
+            // this.companies.filter(comp => comp.id !== companyId)
         }
+    },
+    created() {
+        this.getCompanies();
     }
+};
 </script>
 
 <style scoped>
