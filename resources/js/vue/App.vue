@@ -31,7 +31,7 @@ import CompanyDatatable from './Company/CompanyDatatable.vue'
 
 <style scoped>
 .heading {
-    background: #ccc;
+    background: rgb(236, 236, 236);
     border-radius: 8px;
     margin: 2rem 0;
     padding: 10px;
