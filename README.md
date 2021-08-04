@@ -3,7 +3,7 @@
 To start up this Project you need
 
 - create .env anf copy eveything from .env.example 
-- connect your database database
+- connect your database
 - `composer install`
 - `php artisan key:generate`
 - `npm i`
