@@ -54,7 +54,7 @@ export default {
                 console.log("invalid");
                 return;
             }
-            $emit("edit-company", id, name, email);
+            this.$emit("edit-company", this.id, this.name, this.email);
         },
     },
 };
