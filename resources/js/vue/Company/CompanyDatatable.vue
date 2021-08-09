@@ -32,7 +32,7 @@
             <template #loading> Loading companies data. Please wait. </template>
             <Column field="name" header="Company Name"></Column>
             <Column field="email" header="Email"></Column>
-            <Column field="contactCount" header="Contact Count"></Column>
+            <Column field="contacts_count" header="Contact Count"></Column>
             <Column bodyStyle="text-align: center; overflow: visible;">
                 <template #body="slotProps">
                     <Button
@@ -137,15 +137,6 @@ export default {
             this.selectedName = name;
             this.selectedEmail = email;
             this.displayEditModal = true;
-        },
-        closeModal() {
-            this.displayEditModal = false;
-            this.$toast.add({
-                severity: "error",
-                summary: "Rejected",
-                detail: "You have rejected",
-                life: 3000,
-            });
         },
         closeModal() {
             this.displayEditModal = false;

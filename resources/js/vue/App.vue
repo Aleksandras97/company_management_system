@@ -38,7 +38,7 @@ export default {
             axios
                 .get("api/companies")
                 .then((response) => {
-                    this.companies = response.data.data;
+                    this.companies = response.data;
                     this.loading = false;
                 })
                 .catch((error) => {
@@ -49,7 +49,6 @@ export default {
             console.log(companyId);
             const compIndex = this.companies.findIndex(comp => comp.id === companyId);
             this.companies.splice(compIndex, 1);
-            // this.companies.filter(comp => comp.id !== companyId)
         }
     },
     created() {

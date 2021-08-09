@@ -18231,7 +18231,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      $emit("edit-company", id, name, email);
+      this.$emit("edit-company", this.id, this.name, this.email);
     }
   }
 });

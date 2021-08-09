@@ -20,7 +20,7 @@ class CompanyController extends Controller
     public function index()
     {
     //    return Company::orderByDesc('created_at')->get();
-        return CompanyResource::collection(Company::all());
+        return Company::withCount('contacts')->orderBy('name')->get();;
     }
 
     /**
